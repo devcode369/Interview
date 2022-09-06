@@ -15,9 +15,14 @@ namespace DSAP
 
           //  var result3 = ArraysMaths.MaxAbsValExpr(new[] {1, 2, 3, 4 }, new[] { -1, 4, 5, 6 } );
             var result3 = ArraysMaths.MaxAbsValExpr(new[] { 1, -2, -5, 0, 10 }, new[] { 0, -2, -1, -7, -4 });
+
+            var result4 = ArraysMaths.MaximumGap(new int[] { 3, 6, 9, 1 });
+            var result5 = ArraysMaths.GenerateMatrix(3);
             Console.WriteLine(result);
             Console.WriteLine(result1);
             Console.WriteLine(result3);
+            Console.WriteLine(result4);
+            Console.WriteLine(result5);
             Console.ReadKey();
         }
     }

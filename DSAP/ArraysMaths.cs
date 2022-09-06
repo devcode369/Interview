@@ -89,7 +89,7 @@ namespace DSAP
         public static int MaxAbsValExpr(int[] arr1, int[] arr2)
         {
             int arr1Len = arr1.Length;
-            int arr2Len = arr2.Length;           
+            int arr2Len = arr2.Length;
             int[] arr3 = new int[arr1Len];
             int[] arr4 = new int[arr1Len];
             int[] arr5 = new int[arr1Len];
@@ -116,6 +116,85 @@ namespace DSAP
 
             return arr7.Max();
 
+        }
+
+        //164. Maximum Gap
+        //https://leetcode.com/problems/maximum-gap/submissions/
+        //https://leetcode.com/problems/maximum-gap/discuss/50643/bucket-sort-JAVA-solution-with-explanation-O(N)-time-and-space
+        //https://leetcode.com/problems/maximum-gap/discuss/726951/Java-meaningful-Variable-names-(radix-sort-%2B-bucket-sort)
+        public static int MaximumGap(int[] nums)
+        {
+            if (nums == null || nums.Length == 0 || nums.Length < 2)
+            {
+                return 0;
+            }
+
+            int min = nums.Min(), max = nums.Max();
+
+            int n = nums.Length;
+            int bucketSize = (max - min) / (n - 1);
+            if (bucketSize == 0) bucketSize++;
+            int totalBuckets = (max - min) / bucketSize + 1;
+
+            int[] minBucket = new int[totalBuckets];
+            int[] maxBucket = new int[totalBuckets];
+          
+            minBucket= Enumerable.Repeat(int.MaxValue, totalBuckets).ToArray();          
+
+            for (int i = 0; i < n; i++)
+            { 
+                int index = (nums[i] - min) / bucketSize;
+                minBucket[index] = Math.Min(minBucket[index], nums[i]);
+                maxBucket[index] = Math.Max(maxBucket[index], nums[i]);
+            }
+            int prevMax = maxBucket[0], result = 0;
+            for (int i = 1; i < totalBuckets; i++)
+            {
+                if (minBucket[i] == int.MaxValue) continue;
+                result = Math.Max(result, minBucket[i] - prevMax);
+                prevMax = maxBucket[i];
+            }
+            return result;
+        }
+
+        //59. Spiral Matrix II
+        //https://leetcode.com/problems/spiral-matrix-ii/
+        //https://leetcode.com/problems/spiral-matrix-ii/discuss/1941518/c-or-easy-to-understand-or-with-comments
+        public static int[][] GenerateMatrix(int n)
+        {
+
+            int[][] matrix = new int[n][];
+            for (int i = 0; i < n; i++)
+                matrix[i] = new int[n];
+
+            int top = 0, bottom = n - 1, left = 0, right = n - 1;
+
+            int count = 1;
+            while (true)
+            {           
+                for (int i = left; i <= right; i++)
+                    matrix[top][i] = count++;
+
+                top++;
+                if (top > bottom)
+                    break;             
+                for (int i = top; i <= bottom; i++)
+                    matrix[i][right] = count++;
+                right--; 
+                if (left > right)
+                    break;           
+                for (int i = right; i >= left; i--)
+                    matrix[bottom][i] = count++;
+                bottom--;
+            
+                for (int i = bottom; i >= top; i--)
+                    matrix[i][left] = count++;
+
+                left++;
+
+            }
+
+            return matrix;
         }
 
     }
