@@ -197,5 +197,82 @@ namespace DSAP
             return matrix;
         }
 
+
+        public static IList<string> FizzBuzz(int n)
+        {
+            List<string> list = new List<string>();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 1; i <= n; i++)
+            {
+                bool divBy3 = i % 3 == 0;
+                bool divBy5 = i % 5 == 0;
+                if(divBy3)
+                {
+                    sb.Append("Fizz");
+                }
+                if (divBy5)
+                {
+                    sb.Append("Buzz");
+                }
+                if (sb.Length==0)
+                {
+                    sb.Append(i.ToString());
+                }
+                list.Add(sb.ToString());
+                sb.Clear();
+            }
+            return list;
+        }
+
+
+        public static int DiagonalSum(int[][] mat)
+        {
+            int result=0;
+            int len=mat.Length;
+            for (int i = 0; i < len; i++)
+            {
+                result += mat[i][i];
+                result += mat[len - 1 - i][i];
+            }
+            return len % 2 == 0 ? result : result - mat[len / 2][len / 2];
+        }
+
+        //https://leetcode.com/problems/concatenation-of-array/submissions/
+        public static int[] GetConcatenation(int[] nums)
+        {
+            if(nums == null||nums.Length==0)
+            {
+                return new int[0];
+            }
+
+            return  nums.Concat(nums).ToArray();
+        }
+
+        public static int MostWordsFound(string[] sentences)
+        {
+            int result = 0;
+            if(sentences == null||sentences.Length==0)
+            {
+                return result;
+            }
+
+            foreach (var item in sentences)
+            {
+               result =Math.Max(result,item.Split(' ').Length);
+            }
+            return result;
+        }
+        //https://leetcode.com/problems/maximum-subarray/discuss/20211/Accepted-O(n)-solution-in-java
+
+        public static int MaxSubArray(int[] nums)
+        {
+            int currentMax = nums[0], currentMin = nums[0];
+            for (int i = 1; i < nums.Length; i++)
+            {
+                currentMin = Math.Max(currentMin + nums[i], nums[i]);
+                currentMax = Math.Max(currentMax, currentMin);
+            }
+            return currentMax;
+        }
     }
 }
